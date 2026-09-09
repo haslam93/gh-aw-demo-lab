@@ -9,7 +9,9 @@ permissions:
   copilot-requests: write
   issues: read
   pull-requests: read
-engine: copilot
+engine:
+  id: copilot
+  model: claude-sonnet-5
 imports:
   - .github/agents/triage-bot.md
 network:

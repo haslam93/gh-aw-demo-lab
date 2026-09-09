@@ -11,7 +11,9 @@ permissions:
   contents: read
   copilot-requests: write
   issues: read
-engine: copilot
+engine:
+  id: copilot
+  model: claude-sonnet-5
 network:
   allowed: [defaults]
 tools:

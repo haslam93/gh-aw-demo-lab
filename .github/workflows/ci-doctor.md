@@ -12,7 +12,9 @@ permissions:
   actions: read
   issues: read
   pull-requests: read
-engine: copilot
+engine:
+  id: copilot
+  model: claude-sonnet-5
 network:
   allowed: [defaults]
 tools:

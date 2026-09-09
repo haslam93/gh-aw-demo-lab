@@ -7,7 +7,9 @@ on:
 permissions:
   contents: read
   copilot-requests: write
-engine: copilot
+engine:
+  id: copilot
+  model: claude-sonnet-5
 imports:
   - .github/agents/doc-reviewer.md
 network:

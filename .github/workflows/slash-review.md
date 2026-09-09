@@ -8,7 +8,9 @@ permissions:
   copilot-requests: write
   pull-requests: read
   issues: read
-engine: copilot
+engine:
+  id: copilot
+  model: claude-sonnet-5
 imports:
   - .github/agents/security-reviewer.md
 network:
