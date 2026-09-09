@@ -367,7 +367,9 @@ Include:
   <section class="section" id="sec-whatsnew">
     <div class="eyebrow">Updates</div>
     <h2 class="title">📰 What's New in the gh-aw world</h2>
-    <p class="lede">Recent releases and notable changes in GitHub Agentic Workflows. Entries added in the last 14 days carry a <span class="new-badge">NEW</span> badge. This section is <strong>maintained by an agentic workflow</strong>: <a href="https://github.com/haslam93/gh-aw-demo-lab/blob/main/.github/workflows/site-updater.md" target="_blank">site-updater.md</a> checks the gh-aw project weekly and opens a PR updating the JSON data below — the lab demoing itself. 🐕🦴</p>
+    <p class="lede">Recent releases and notable changes in GitHub Agentic Workflows. Releases published in the last 14 days carry a <span class="new-badge">NEW</span> badge. <a href="https://github.com/haslam93/gh-aw-demo-lab/blob/main/.github/workflows/site-updater.md" target="_blank">site-updater.md</a> checks upstream releases daily and proposes JSON-only updates. A maintainer must review and merge each PR before it appears here.</p>
+    <p id="wn-status" class="note" role="status"></p>
+    <p class="small"><a href="https://github.com/haslam93/gh-aw-demo-lab/actions/workflows/site-updater.lock.yml" target="_blank">Updater runs ↗</a> &middot; <a href="https://github.com/haslam93/gh-aw-demo-lab/pulls?q=is%3Apr+is%3Aopen+%22%5Bsite-updater%5D%22" target="_blank">Pending update PRs ↗</a></p>
 
     <div id="wn-list"></div>
 
@@ -379,16 +381,19 @@ Include:
     -->
     <script type="application/json" id="whatsnew-data">
 [
+  { "date": "2026-09-09", "tag": "v0.89.0", "title": "Prerelease: model selection fixes and richer MCP logs", "summary": "Adds identifiable MCP tool calls and workflow-run exclusions to gh aw logs, plus GPT-6 Astra model catalog support. Fixes Copilot SDK model inventory collection and refreshes engine tooling and the MCP gateway.", "link": "https://github.com/github/gh-aw/releases/tag/v0.89.0" },
+  { "date": "2026-09-08", "tag": "v0.88.8", "title": "Prerelease: workflow discovery and dynamic enclave fixes", "summary": "Fixes log discovery in repositories with more than 50 workflows. Repairs generated MCP policies for dynamic GitHub enclaves when the default GitHub tool backend is disabled.", "link": "https://github.com/github/gh-aw/releases/tag/v0.88.8" },
+  { "date": "2026-09-08", "tag": "v0.88.7", "title": "Stable release: honest failure reporting and safer artifacts", "summary": "Workflows fail when agents report incomplete work, and artifact packaging is restricted to known files. Logs gain improved pruning and remote workflow resolution; OTLP authorization handling is hardened.", "link": "https://github.com/github/gh-aw/releases/tag/v0.88.7" },
   { "date": "2026-07-07", "tag": "v0.82.3", "title": "dismiss-review safe output + compiler job dependency control", "summary": "Workflows can now programmatically dismiss their own PR reviews with actor-bound guards; jobs.<generated>.needs augments compiler-generated job dependencies; close-issue duplicate_of creates a proper 'marked as duplicate' timeline entry; CI drift detection catches stale .lock.yml files; MCP server hardened to bind 127.0.0.1 only.", "link": "https://github.com/githubnext/gh-aw/releases/tag/v0.82.3" },
   { "date": "2026-07-02", "tag": "v0.82.2", "title": "ARC/DinD runner support + per-skill GitHub auth", "summary": "Compiled workflows now run reliably on Actions Runner Controller / Docker-in-Docker topologies; each skills: entry can carry its own github-token or github-app credential; create-pull-request reviewers/assignees accept runtime template expressions.", "link": "https://github.com/githubnext/gh-aw/releases/tag/v0.82.2" },
   { "date": "2026-06-30", "tag": "v0.82.1", "title": "v0.82.1 pre-release", "summary": "Incremental fixes and improvements on the 0.82 line — see the release notes for details.", "link": "https://github.com/githubnext/gh-aw/releases/tag/v0.82.1" },
-  { "date": "2026-07-07", "tag": "lab", "title": "This demo lab now updates itself", "summary": "A new weekly agentic workflow (site-updater) watches githubnext/gh-aw for releases and doc changes, updates this What's New section in the hosted site, and opens a pull request — a live example of the docs-gardener pattern applied to this very page.", "link": "https://github.com/haslam93/gh-aw-demo-lab/blob/main/.github/workflows/site-updater.md" },
-  { "date": "2026-06-24", "tag": "lab", "title": "Org-level Copilot billing — zero secrets", "summary": "All lab workflows switched from COPILOT_GITHUB_TOKEN PATs to permissions: copilot-requests: write. Inference now authenticates with the built-in Actions token, billed through the organization's Copilot plan.", "link": "https://github.com/haslam93/gh-aw-demo-lab#-setup--none-required-" }
+  { "date": "2026-07-07", "tag": "lab", "title": "This demo lab proposes its own updates", "summary": "The site-updater workflow watches gh-aw releases and proposes updates to this section through pull requests. Publication requires maintainer review and merge; documentation changes are not automatically monitored.", "link": "https://github.com/haslam93/gh-aw-demo-lab/blob/main/.github/workflows/site-updater.md" },
+  { "date": "2026-06-24", "tag": "lab", "title": "Org-level Copilot billing — zero secrets", "summary": "All lab workflows switched from COPILOT_GITHUB_TOKEN PATs to permissions: copilot-requests: write. Inference now authenticates with the built-in Actions token, billed through the organization's Copilot plan where that billing mode is available.", "link": "https://github.com/haslam93/gh-aw-demo-lab" }
 ]
     </script>
 
     <div class="note sec" style="margin-top:16px"><strong>How the badge works:</strong> the page compares each entry's <code>date</code> to today at load time — anything ≤ 14 days old is tagged <span class="new-badge" style="animation:none">NEW</span>, and the sidebar link gets a count. The updater agent only edits the JSON; the rendering logic stays untouched, which keeps the agent's diff small, reviewable, and safe.</div>
-    <p class="small muted">Sources watched: <a href="https://github.com/githubnext/gh-aw/releases" target="_blank">gh-aw releases</a> &middot; <a href="https://github.github.com/gh-aw/" target="_blank">official docs</a> &middot; <a href="https://github.com/githubnext/agentics" target="_blank">agentics samples</a></p>
+    <p class="small muted">Release source: <a href="https://github.com/github/gh-aw/releases" target="_blank">gh-aw releases (including prereleases)</a>. Further reading: <a href="https://github.github.com/gh-aw/" target="_blank">official docs</a> &middot; <a href="https://github.com/githubnext/agentics" target="_blank">agentics samples</a>. Examples are teaching snapshots, not a complete reference for every upstream feature.</p>
   </section>
 
   <!-- ================= PIPELINE ================= -->
@@ -422,7 +427,7 @@ Include:
    → Safe Outputs Gate        <span class="cm"># structured JSON requests, validated</span>
    → Threat Detection Scan    <span class="cm"># scans agent output for injection/exfil</span>
    → Scoped Write Job         <span class="cm"># separate job with exactly the needed permission</span></pre></div>
-    <p class="small muted">This layered model is why an agent manipulated by prompt injection still can't push code, leak secrets, or spam issues beyond configured limits.</p>
+    <p class="small muted">These layers reduce the impact of prompt injection by restricting network access and writes. They are defense in depth, not a guarantee against every attack; keep permissions narrow and review proposed changes.</p>
   </section>
 
   <!-- ================= ANATOMY ================= -->
@@ -955,7 +960,7 @@ gh aw secrets list</pre></div>
   <section class="section" id="sec-simulator">
     <div class="eyebrow">Interactive</div>
     <h2 class="title">Run Simulator — watch a run travel the guardrails</h2>
-    <p class="lede">A simulated end-to-end run of an issue-triage agentic workflow. Press play and narrate each stage during your demo — including the moment the safe-outputs gate blocks an over-limit request.</p>
+    <p class="lede">A local, simulated issue-triage run — no API calls, Actions runs, or AI credits. Watch the allowlist reject an unapproved label, or enable the illustrative attack scenario to see writes blocked. Detection is not guaranteed in real runs.</p>
     <div style="display:flex; gap:10px; margin-bottom:6px;">
       <button class="btn primary" id="sim-play">▶ Run workflow</button>
       <button class="btn" id="sim-reset">↺ Reset</button>
@@ -1053,13 +1058,32 @@ document.addEventListener('click', e => {
   const list = document.getElementById('wn-list');
   if (!dataEl || !list) return;
   let items;
-  try { items = JSON.parse(dataEl.textContent); } catch(e) { list.innerHTML = '<p class="small muted">Could not parse update data.</p>'; return; }
+  try {
+    items = JSON.parse(dataEl.textContent);
+    if (!Array.isArray(items) || !items.every(it => it &&
+      ['date', 'tag', 'title', 'summary', 'link'].every(key => typeof it[key] === 'string') &&
+      /^\d{4}-\d{2}-\d{2}$/.test(it.date) && Number.isFinite(Date.parse(it.date)))) {
+      throw new Error('Invalid update entries');
+    }
+  } catch(e) {
+    list.textContent = 'Could not parse update data. View upstream releases using the link below.';
+    return;
+  }
   items.sort((a,b) => b.date.localeCompare(a.date));
   const FRESH_DAYS = 14;
   const now = Date.now();
+  const latest = items.find(it => /^v\d/.test(it.tag) && Date.parse(it.date + 'T00:00:00Z') <= now);
+  const status = document.getElementById('wn-status');
+  if (status) status.textContent = latest
+    ? 'Latest recorded release: ' + latest.tag + ' (' + latest.date + '). ' +
+      (now - Date.parse(latest.date + 'T00:00:00Z') > FRESH_DAYS * 86400000
+        ? 'This snapshot may be stale — check updater runs, pending PRs, and upstream releases.'
+        : 'This is a reviewed snapshot, not a live feed.')
+    : 'No published releases recorded — check upstream releases.';
   let freshCount = 0;
   list.innerHTML = items.map(it => {
-    const isFresh = (now - new Date(it.date + 'T00:00:00').getTime()) <= FRESH_DAYS * 86400000;
+    const age = now - Date.parse(it.date + 'T00:00:00Z');
+    const isFresh = age >= 0 && age <= FRESH_DAYS * 86400000;
     if (isFresh) freshCount++;
     const tagClass = it.tag === 'lab' ? 'accent' : (it.tag === 'docs' ? 'ok' : '');
     return '<div class="wn-item">'
@@ -1068,7 +1092,7 @@ document.addEventListener('click', e => {
       + (isFresh ? '<span class="new-badge">NEW</span>' : '') + '</div>'
       + '<h4>' + esc(it.title) + '</h4>'
       + '<p>' + esc(it.summary)
-      + (it.link ? ' <a href="' + esc(it.link) + '" target="_blank">Details ↗</a>' : '') + '</p>'
+      + (safeNewsLink(it.link) ? ' <a href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">Details ↗</a>' : '') + '</p>'
       + '</div>';
   }).join('');
   if (freshCount > 0) {
@@ -1517,7 +1541,14 @@ soData.forEach((s, i) => {
   });
   soList.appendChild(b);
 });
-function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function safeNewsLink(link){
+  try {
+    const url = new URL(link);
+    return url.protocol === 'https:' && url.hostname === 'github.com' &&
+      !url.username && !url.password && !url.port;
+  } catch(e) { return false; }
+}
 function renderSo(s){
   soDetail.innerHTML = '<div class="card"><h4><code style="white-space:normal">' + s.id + '</code> <span class="pill">' + s.tag + '</span></h4>' +
     '<p class="small" style="margin:8px 0">' + s.d + '</p>' +
@@ -1574,7 +1605,7 @@ function buildWf(){
   if (v('b-g-approval').checked) f += '  manual-approval: production   # environment protection gate\n';
   f += 'permissions:\n  contents: read\n  issues: read\n  pull-requests: read\n';
   if (eng === 'copilot') f += '  copilot-requests: write   # org-billed inference, no PAT needed\n';
-  f += 'engine: ' + eng + '\n';
+  f += eng === 'copilot' ? 'engine:\n  id: copilot\n  model: claude-sonnet-5\n' : 'engine: ' + eng + '\n';
   if (v('b-g-network').checked) f += 'network:\n  allowed: [defaults]\n';
   const tools = [];
   if (v('b-t-github').checked) tools.push('  github:\n    toolsets: [default]');
@@ -1584,7 +1615,7 @@ function buildWf(){
   if (v('b-t-memory').checked) tools.push('  cache-memory:');
   if (tools.length) f += 'tools:\n' + tools.join('\n') + '\n';
   const so = [];
-  if (v('b-so-issue').checked) so.push('  create-issue:\n    title-prefix: "[' + name + '] "\n    labels: [automation]\n    max: 1');
+  if (v('b-so-issue').checked) so.push('  create-issue:\n    title-prefix: ' + JSON.stringify('[' + name + '] ') + '\n    labels: [automation]\n    max: 1');
   if (v('b-so-comment').checked) so.push('  add-comment:\n    max: 1');
   if (v('b-so-labels').checked) so.push('  add-labels:\n    allowed: [bug, enhancement, question, docs]\n    max: 3');
   if (v('b-so-pr').checked) so.push('  create-pull-request:\n    title-prefix: "[bot] "\n    draft: true');
@@ -1615,7 +1646,7 @@ const simStepsDef = [
   ['🛂 Activation gates', 'Role check (author: write ✓), bot filter ✓, daily AI-credit budget ✓'],
   ['📦 AWF sandbox boot', 'Container start · network firewall loaded (allowed: defaults) · read-only token minted · secrets withheld'],
   ['🤖 Agent reasoning', 'Copilot CLI reads issue + recent issues, searches codebase for upload handler'],
-  ['📤 Safe output requests', 'Agent emits structured JSON: add_labels + add_comment (+1 extra label to test limits)'],
+  ['📤 Safe output requests', 'Agent emits structured JSON: add_labels + add_comment (+1 unapproved label)'],
   ['🔍 Threat detection', 'Scanning agent output for injection / exfiltration patterns'],
   ['✅ Gated write jobs', 'Scoped jobs execute approved requests (issues: write only)'],
 ];
@@ -1652,18 +1683,20 @@ document.getElementById('sim-play').addEventListener('click', () => {
   at(t += 1400, () => { slog('agent[copilot]: grep "upload" src/ → src/upload/chunker.ts (no size guard on line 88)');
     if (attack) slog('awf-firewall: BLOCKED egress to evil.example.com (not in allowlist)', 'hl'); });
   at(t += 1300, () => { step(3,'done'); run(4);
-    slog('safeoutputs.add_labels  {"labels":["bug","area/uploads","priority-high","needs-repro"]}');
+    slog('safeoutputs.add_labels  {"labels":["bug","docs","question","priority-high"]}');
     slog('safeoutputs.add_comment {"body":"Thanks @maria-dev! Likely missing size guard in chunker.ts:88 …"}'); });
   at(t += 1200, () => { step(4,'done'); run(5);
-    slog('gate: add_labels → "priority-high" not in allowed [bug, enhancement, question, docs, area/*] → DROPPED', 'hl');
-    slog('gate: max: 3 enforced → 3 of 4 labels pass validation', 'hl');
-    if (attack) slog('threat-detection: exfiltration pattern found in agent transcript → flagged, comment sanitized', 'hl');
-    slog('threat-detection: output scan complete ✓', 'ok'); });
+    slog('gate: add_labels → "priority-high" not in allowed [bug, enhancement, question, docs, duplicate] → DROPPED', 'hl');
+    slog('gate: 3 approved labels remain after allowlist filtering', 'hl');
+    if (attack) slog('threat-detection: simulated unsafe output detected → write jobs blocked', 'hl');
+    else slog('threat-detection: output scan complete ✓', 'ok'); });
   at(t += 1300, () => { step(5,'done'); run(6);
-    slog('job add-labels   (issues: write): applied [bug, area/uploads, needs-repro] ✓', 'ok');
+    if (attack) { slog('safe-output jobs skipped: simulated threat-detection failure', 'hl'); return; }
+    slog('job add-labels   (issues: write): applied [bug, docs, question] ✓', 'ok');
     slog('job add-comment  (issues: write): posted 1 comment with gh-aw-workflow-id marker ✓', 'ok'); });
   at(t += 1000, () => { step(6,'done');
-    slog('run complete · 41.2k tokens · 87 AIC of 500 budget · view with: gh aw logs', 'ok'); });
+    slog(attack ? 'simulation complete · writes blocked · no real tokens or credits used'
+      : 'simulation complete · illustrative usage: 41.2k tokens / 87 AIC · no real credits used', attack ? 'hl' : 'ok'); });
 });
 
 /* ---------- Examples gallery ---------- */
@@ -1837,11 +1870,14 @@ summary of each change. Do not touch anything outside docs.`,
 `---
 on:
   schedule:
-    - cron: "0 7 * * 1"
+    - cron: "0 7 * * *"
   workflow_dispatch:
 permissions:
   contents: read
   copilot-requests: write
+engine:
+  id: copilot
+  model: claude-sonnet-5
 tools:
   edit:
   github:
@@ -1852,14 +1888,17 @@ safe-outputs:
     labels: [docs, automated]
 ---
 
-# Weekly Site Updater
+# Daily Site Updater
 
-Check githubnext/gh-aw for releases newer than the latest entry in
-the whatsnew-data JSON block inside docs/index.html. For each new
+Check github/gh-aw for recent release tags not yet recorded in
+the whatsnew-data JSON block inside docs/index.html. For each missing
 release, summarize the highlights into a JSON entry and insert it
 at the top of the array in BOTH docs/index.html and demo.html.
 The page renders a NEW badge for entries younger than 14 days.
-If nothing new, finish without creating a pull request.`,
+Include prereleases, label them clearly, and deduplicate by tag.
+Validate with node app/test.js before proposing a PR.
+If nothing new, finish without creating a pull request.
+A maintainer reviews and merges updates before Pages publishes them.`,
   d:'Meta-automation: the workflow that maintains this very page\'s 📰 What\'s New section. The agent edits only a JSON data island — small, reviewable diffs — and the page\'s JS does the rendering and NEW-badge logic.'},
 ];
 const exTabs = document.getElementById('ex-tabs');

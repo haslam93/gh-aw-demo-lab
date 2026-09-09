@@ -4,15 +4,19 @@
 
 A live companion repository for the **[GitHub Agentic Workflows (gh-aw)](https://github.github.com/gh-aw/) Interactive Demo Lab** HTML app.
 
-**🌐 View it live: [haslam93.github.io/gh-aw-demo-lab](https://haslam93.github.io/gh-aw-demo-lab/)** — 14 interactive sections covering the pipeline, workflow anatomy, AI engines & agent personas, safe outputs, multi-agent orchestration, AWF sandbox security, authentication, a workflow builder, and a run simulator. (Also available in-repo as [`demo.html`](demo.html).)
+**🌐 View it live: [haslam93.github.io/gh-aw-demo-lab](https://haslam93.github.io/gh-aw-demo-lab/)** — 15 interactive sections covering the pipeline, workflow anatomy, AI engines & agent personas, safe outputs, multi-agent orchestration, AWF sandbox security, authentication, a workflow builder, and a run simulator. (Also available in-repo as [`demo.html`](demo.html).)
 
-Every example in the HTML app maps to a **real, compiled, runnable workflow** in this repo, so you can flip from concept → live run in one click.
+The examples link to **real, compiled workflows** in this repo. They are teaching
+snapshots (some use different engines or settings); linked workflow sources are
+authoritative. The browser simulator is local only and does not start Actions runs.
 
-## 🚀 Setup — none required 🎉
+## 🚀 Setup — check Copilot access
 
-Workflows use the **Copilot engine with org-level billing**: every workflow declares
+Workflows are configured for the **Copilot engine with org-level billing**: every workflow declares
 `copilot-requests: write` under `permissions:`, so inference authenticates with the
-built-in GitHub Actions token (`${{ github.token }}`). **No PAT, no secrets.**
+built-in GitHub Actions token (`${{ github.token }}`). **No PAT is needed when the
+repository has access to this billing mode.** A personal fork or organization
+without that access may need the fallback below.
 Tokens are minted per-run and auto-revoked; billing flows through the organization's
 Copilot plan.
 
@@ -25,6 +29,42 @@ Copilot plan.
 gh aw status   # verify everything is compiled and active
 ```
 
+### Troubleshooting scheduled runs
+
+On September 9, 2026, the daily report and site updater logs showed HTTP 400:
+`The requested model is not available for integrator "agentic-workflows"`.
+They were using the compiler's old `claude-sonnet-4.6` default. All nine workflow
+sources now explicitly select `claude-sonnet-5`, which was listed as available
+in those responses, and their locks were regenerated with **gh-aw v0.81.6**.
+This is a model-selection failure, not evidence of a missing PAT.
+
+- Inspect the failed **agent** job and its model error before changing secrets.
+- If model access changes, select a model available to your account in the
+  workflow's `engine.model`, run `gh aw compile`, and commit both source and lock.
+  Retrying an old run still uses its old workflow configuration.
+- The daily report is scheduled for **09:00 UTC on weekdays**; Actions schedules
+  can be delayed. Use `gh aw run daily-team-status` for a manual check after merge.
+- The pinned compiler is deliberately separate from the release news feed.
+  Upgrading it requires recompiling and validating all workflows.
+
+### Site freshness and validation
+
+The site updater checks [`github/gh-aw` releases](https://github.com/github/gh-aw/releases)
+**daily at 07:00 UTC**, including explicitly labeled prereleases. It compares tags,
+not dates, to avoid missing same-day releases and checks for existing update PRs.
+It proposes JSON-only changes; **a maintainer must merge the PR** before GitHub
+Pages publishes them. It does not automatically monitor all documentation changes.
+
+The news panel shows the latest recorded release and warns when it is more than
+14 days old, with links to updater runs, pending PRs, and upstream releases.
+The refreshed snapshot includes stable **v0.88.7** and prerelease **v0.89.0**
+(verified September 9, 2026).
+
+Run `npm test` (no dependency installation needed) to check the app, matching
+`docs/index.html` / `demo.html` copies, release data, embedded JavaScript, news
+rendering, and builder output. CI runs these same checks. The intentionally
+vulnerable dependency fixtures below are not needed to serve or test the site.
+
 ## 🎬 The demos
 
 | # | Workflow | Trigger it live | Demonstrates | HTML section |
@@ -35,7 +75,7 @@ gh aw status   # verify everything is compiled and active
 | 4 | [`docs-gardener.md`](.github/workflows/docs-gardener.md) | `gh aw run docs-gardener` | **doc-reviewer persona**, `edit` tool, draft `create-pull-request` | Safe Outputs / Examples |
 | 5 | [`weekly-ops-orchestrator.md`](.github/workflows/weekly-ops-orchestrator.md) | `gh aw run weekly-ops-orchestrator` | **multi-agent orchestration**: `dispatch-workflow` fans out to [`triage-worker`](.github/workflows/triage-worker.md) + [`dep-audit-worker`](.github/workflows/dep-audit-worker.md) | Multi-Agent Orchestration |
 | 6 | [`ci-doctor.md`](.github/workflows/ci-doctor.md) | Run **CI** workflow with `force_fail=true` | `workflow_run` trigger, log analysis, `deduplicate-by-title` | Examples (CI doctor) |
-| 7 | [`site-updater.md`](.github/workflows/site-updater.md) | `gh aw run site-updater` | **self-updating site**: weekly agent tracks [gh-aw releases](https://github.com/githubnext/gh-aw/releases), refreshes the [live site's](https://haslam93.github.io/gh-aw-demo-lab/) 📰 *What's New* JSON (auto **NEW** badges), opens a PR | What's New / Examples |
+| 7 | [`site-updater.md`](.github/workflows/site-updater.md) | `gh aw run site-updater` | **self-updating site**: daily agent tracks [gh-aw releases](https://github.com/github/gh-aw/releases), validates synchronized 📰 *What's New* JSON, and proposes a PR for review and merge | What's New / Examples |
 
 ### Agent personas (`.github/agents/`)
 
