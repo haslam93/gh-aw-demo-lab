@@ -35,7 +35,7 @@ for (const item of news) {
   }
 }
 
-const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => match[1]);
+const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)].map(match => match[1]);
 assertEqual(scripts.length > 0, true, "embedded scripts found");
 scripts.forEach(script => new vm.Script(script));
 const script = scripts.join("\n");
@@ -87,7 +87,7 @@ control("b-so-issue").checked = true;
 control("b-g-network").checked = true;
 vm.runInNewContext(builder + "\nbuildWf();", { document: { getElementById: control } });
 const output = control("b-output").textContent;
-assertEqual(output.includes("  model: claude-sonnet-5\n"), true, "builder uses available model");
+assertEqual(output.includes("  model: gpt-5.4\n"), true, "builder uses available model");
 assertEqual(JSON.parse(output.match(/title-prefix: (.+)/)[1]), '[demo"\\name] ', "builder quotes YAML title safely");
 
 const simulator = script.slice(script.indexOf("const simStepsDef ="), script.indexOf("/* ---------- Examples gallery"));

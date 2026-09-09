@@ -10,7 +10,7 @@ permissions:
   issues: read
 engine:
   id: copilot
-  model: claude-sonnet-5
+  model: gpt-5.4
 imports:
   - .github/agents/security-reviewer.md
 network:

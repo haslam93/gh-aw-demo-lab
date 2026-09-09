@@ -34,9 +34,11 @@ gh aw status   # verify everything is compiled and active
 On September 9, 2026, the daily report and site updater logs showed HTTP 400:
 `The requested model is not available for integrator "agentic-workflows"`.
 They were using the compiler's old `claude-sonnet-4.6` default. All nine workflow
-sources now explicitly select `claude-sonnet-5`, which was listed as available
-in those responses, and their locks were regenerated with **gh-aw v0.81.6**.
-This is a model-selection failure, not evidence of a missing PAT.
+sources now explicitly select `gpt-5.4`, which was listed as available in those
+responses, and their locks were regenerated with **gh-aw v0.81.6**. A validation
+run also showed that the pinned runtime rejects the newer `claude-sonnet-5`
+identifier before inference, so API availability alone is insufficient.
+These are model-selection failures, not evidence of a missing PAT.
 
 - Inspect the failed **agent** job and its model error before changing secrets.
 - If model access changes, select a model available to your account in the

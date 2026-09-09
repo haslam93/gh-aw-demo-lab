@@ -11,7 +11,7 @@ permissions:
   copilot-requests: write
 engine:
   id: copilot
-  model: claude-sonnet-5
+  model: gpt-5.4
 network:
   allowed: [defaults]
 tools:
@@ -42,13 +42,16 @@ are allowed to edit. Do not touch any HTML, CSS, or JavaScript.
 ## Your task
 
 1. Read the current `whatsnew-data` JSON from `docs/index.html` and collect all
-   recorded release tags (tags like `vX.Y.Z`).
+   recorded release tags (tags like `vX.Y.Z`). Count the entries tagged `lab`;
+   the retainable release window is `15 - lab entry count`.
 
 2. Using the GitHub tools, list the 15 most recently published releases of the
    canonical `github/gh-aw` repository, including prereleases but excluding
-   drafts. Compare by tag, not date, so multiple releases on one day are not
-   missed. Check open `[site-updater]` PRs first; if one already covers the
-   missing tags, finish without opening a duplicate.
+   drafts. Restrict candidates to the newest releases that fit the retainable
+   window BEFORE comparing tags; older trimmed releases must not be re-added.
+   Compare by tag, not date, so multiple releases on one day are not missed.
+   Check open `[site-updater]` PRs first; if one already covers the missing tags,
+   finish without opening a duplicate.
 
 3. For each missing release in that recent window, read its release notes and
    write ONE entry:
@@ -71,8 +74,10 @@ are allowed to edit. Do not touch any HTML, CSS, or JavaScript.
    synchronization. Preserve the existing indentation style. Do not open a PR
    if validation fails.
 
-6. If you added at least one entry, create a pull request titled with the newest
-   release tag and a body that lists each entry you added, with links.
+6. Compare the final trimmed arrays with the originals. Only if the final files
+   differ, create a pull request titled with the newest added release tag and
+   a body that lists each retained entry you added, with links. Never request
+   an empty PR.
 
 ## Rules
 

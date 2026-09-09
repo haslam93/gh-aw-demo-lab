@@ -13,7 +13,7 @@ permissions:
   issues: read
 engine:
   id: copilot
-  model: claude-sonnet-5
+  model: gpt-5.4
 network:
   allowed: [defaults]
 tools:

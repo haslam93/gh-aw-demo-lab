@@ -1605,7 +1605,7 @@ function buildWf(){
   if (v('b-g-approval').checked) f += '  manual-approval: production   # environment protection gate\n';
   f += 'permissions:\n  contents: read\n  issues: read\n  pull-requests: read\n';
   if (eng === 'copilot') f += '  copilot-requests: write   # org-billed inference, no PAT needed\n';
-  f += eng === 'copilot' ? 'engine:\n  id: copilot\n  model: claude-sonnet-5\n' : 'engine: ' + eng + '\n';
+  f += eng === 'copilot' ? 'engine:\n  id: copilot\n  model: gpt-5.4\n' : 'engine: ' + eng + '\n';
   if (v('b-g-network').checked) f += 'network:\n  allowed: [defaults]\n';
   const tools = [];
   if (v('b-t-github').checked) tools.push('  github:\n    toolsets: [default]');
@@ -1877,7 +1877,7 @@ permissions:
   copilot-requests: write
 engine:
   id: copilot
-  model: claude-sonnet-5
+  model: gpt-5.4
 tools:
   edit:
   github:

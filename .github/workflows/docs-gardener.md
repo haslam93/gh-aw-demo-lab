@@ -9,7 +9,7 @@ permissions:
   copilot-requests: write
 engine:
   id: copilot
-  model: claude-sonnet-5
+  model: gpt-5.4
 imports:
   - .github/agents/doc-reviewer.md
 network:
